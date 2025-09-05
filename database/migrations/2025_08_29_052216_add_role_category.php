@@ -28,7 +28,7 @@ class AddRoleCategory extends Migration
     {
         Schema::table('roles', function (Blueprint $table)
         {
-            $table->dropColumn('rolecategory');
+            $table->dropColumn('role_category');
         });
     }
 }

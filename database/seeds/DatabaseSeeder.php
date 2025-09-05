@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::create([
             'business_id' => $business->id,
-            'Name' => 'Admin myBusiness',
-            'Status' => true
+            'name' => 'Admin myBusiness',
+            'status' => true
         ]);
         User::create([
             'email' => $business->email,

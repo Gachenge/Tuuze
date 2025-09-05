@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", ()=> {
-        setTimeout(() => {
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
         let alerts = document.querySelectorAll('.alert:not(.no-timeout)');
         alerts.forEach(alert => {
             let bsAlert = new bootstrap.Alert(alert);
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
 
     document.querySelectorAll('.btn-delete').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const businessId = this.getAttribute('data-id');
             Swal.fire({
                 title: 'Are you sure?',

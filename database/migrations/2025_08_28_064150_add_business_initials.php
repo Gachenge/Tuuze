@@ -13,7 +13,7 @@ class AddBusinessInitials extends Migration
      */
     public function up()
     {
-        Schema::table('Businesses', function (Blueprint $table)
+        Schema::table('businesses', function (Blueprint $table)
         {
             $table->string('initials')->nullable;
         });
@@ -26,7 +26,7 @@ class AddBusinessInitials extends Migration
      */
     public function down()
     {
-        Schema::table('Businesses', function (Blueprint $table)
+        Schema::table('businesses', function (Blueprint $table)
         {
             $table->dropColumn('initials');
         });

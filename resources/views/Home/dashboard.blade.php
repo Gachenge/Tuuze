@@ -5,31 +5,33 @@
 @php
     $user = auth()->user()->load('role');
     $isStaff = $user->role ? $user->role->isStaff() : false;
+    $myOrders = $allOrders['myorders'];
 @endphp
 
 @section('content')
 
     <div class="container mt-4 scrollbar">
         <h2 class="primary-text mb-2 mt-2">Orders</h2>
-        <h5 class="text-end">Total Purchase Cost: {{ $allOrders['totalCost'] }}</h4>
-            @php
-                $myOrders = $allOrders['myorders'];
-            @endphp
+        <h5 class="text-end">Total Purchase Cost: {{ number_format($allOrders['totalCost'], 2) }}</h4>
+
             @foreach ($myOrders as $order)
                 <div class="card mb-4">
                     <div class="card-header">
-                        Order #{{ $order->id }} — Total: {{ number_format($order->total, 2) }}
-                        @if ($isStaff)
-                            @php
-                                $customer = $order->user;
-                            @endphp
-                            <div class="text-end">
-                                Customer: {{ $customer->name }}
-                                <div class="font-italic">
-                                    {{ $customer->email }}
-                                </div>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div>Order #{{ $order->id }} — Total: {{ number_format($order->total, 2) }}</div>
+                                <small class="text-muted">Date: {{ $order->created_at->format('Y-m-d H:i') }}</small>
                             </div>
-                        @endif
+                            @if ($isStaff)
+                                @php
+                                    $customer = $order->user;
+                                @endphp
+                                <div class="text-end">
+                                    <strong>Customer: {{ $customer->name }}</strong>
+                                    <div class="fst-italic text-muted">{{ $customer->email }}</div>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body p-0">
                         <table class="table mb-0">
