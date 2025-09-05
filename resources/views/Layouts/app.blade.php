@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml">
     @php
-        $bId = auth()->user()->business_id;
+        $user = auth()->user();
+        $bId = $user->business_id;
         $settings = mySettings($bId);
+        $isStaff = $user->role->isStaff();
     @endphp
     <script>
         let primColor = @json($settings->primary_color);
@@ -90,7 +92,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            @if (auth()->user()->role && auth()->user()->role->isCustomer())
+                            @if (!$isStaff)
                                 <li class="nav-item">
                                     <a href="{{ route('cart.index') }}" class="nav-link">
                                         🛒
@@ -136,22 +138,26 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('products.index') }}">📦 Products</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('cart.index') }}">🛒 Cart
-                                        @if (session('cart'))
-                                            ({{ count(session('cart')) }})
-                                        @endif
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('checkout.index') }}">💳 Checkout</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('users.index') }}">🤵 User management</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('settings.index') }}">⚙ Settings</a>
-                                </li>
+                                @if (!$isStaff)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('cart.index') }}">🛒 Cart
+                                            @if (session('cart'))
+                                                ({{ count(session('cart')) }})
+                                            @endif
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('checkout.index') }}">💳 Checkout</a>
+                                    </li>
+                                @endif
+                                @if ($isStaff)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('users.index') }}">🤵 User management</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('settings.index') }}">⚙ Settings</a>
+                                    </li>
+                                @endif
                             </ul>
                         </nav>
                     </div>

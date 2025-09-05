@@ -11,7 +11,8 @@ class UserManagementController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::all();
+        $bId = $request->user()->business_id;
+        $users = User::where('business_id', $bId)->get();
         return response()->json([
             'status' => 'success',
             'users' => UserResource::collection($users)

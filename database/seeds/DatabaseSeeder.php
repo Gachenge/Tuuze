@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
         $role = Role::create([
             'business_id' => $business->id,
             'name' => 'Admin myBusiness',
-            'status' => true
+            'status' => true,
+            'role_category' => 'staff'
         ]);
         User::create([
             'email' => $business->email,

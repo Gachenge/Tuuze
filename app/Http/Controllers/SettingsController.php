@@ -53,7 +53,7 @@ class SettingsController extends Controller
             'secondary_color' => $request->secondary_color,
             'business_id' => $request->business_id
         ]);
-        return redirect('/settings/edit', ['id', $settings->id])->with('status', 'Settings saved');
+        return redirect()->route('settings.edit', ['id' => $settings->id])->with('status', 'Settings saved');
     }
 
     /**

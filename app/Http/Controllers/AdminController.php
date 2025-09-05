@@ -140,7 +140,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:businesses,email,',
+            'email' => 'required|email|unique:businesses,email',
             'logofile' => 'nullable|file|mimes:jpeg,png,jfif|max:2048',
             'domain' => 'required|string|max:255',
             'initials' => 'required|string|max:255'
@@ -168,6 +168,7 @@ class AdminController extends Controller
                 'business_id' => $newBusiness->id,
                 'name' => 'Admin ' . $request->initials,
                 'status' => true,
+                'role_category' => 'staff'
             ];
             $newRole = Role::create($roleData);
 
